@@ -72,8 +72,10 @@ class BowlingGame:
 
     def spareScore(self,rollIndex):
         """Returns 10 + Score for first ball of next frame"""
-        return  10+ self.rolls[rollIndex+2]
-
+        if rollIndex + 2 < len(self.rolls):
+            return  10+ self.rolls[rollIndex+2]
+        else:
+            return 10
     def frameScore(self, rollIndex):
         """returns Score for both balls in current Frame"""
         if rollIndex +1 < len(self.rolls):

@@ -26,8 +26,11 @@ class TestBowlingGame(unittest.TestCase):
     def testOneSpare(self):
         """simulates a game with a Spare in the first frame and"""
         self.game.roll(5)
+        self.assertEqual(self.game.score(), 5)
         self.game.roll(5)
+        self.assertEqual(self.game.score(), 10)
         self.game.roll(3)
+        self.assertEqual(self.game.score(), 16)
         self.rollMany(0,17)
         assert self.game.score()==16
 
@@ -49,6 +52,7 @@ class TestBowlingGame(unittest.TestCase):
     def testALLSpares(self):
         """Simulates a Game where every ball roll knocks down 5 pins, resulting in a Spare for each frame"""
         self.rollMany(5,21)
+        self.assertEqual(self.game.score(), 150)
         assert self.game.score()==150
         
     def rollMany(self, pins, roll):
