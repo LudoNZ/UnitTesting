@@ -70,6 +70,53 @@ class TestBowlingGame(unittest.TestCase):
         self.rollMany(11,22)
         assert self.game.score()==300
 
+    def testRealSimulation(self):
+        """Test entire game from real score card.
+
+        results mid-game wont always match score card results because 
+        they wont account for the next rolls points until they have occured.
+        """
+        self.game.roll(7)
+        self.assertEqual(self.game.score(), 7)
+        self.game.roll(1)
+        self.assertEqual(self.game.score(), 8)#8 ...on card (at end of game)
+        self.game.roll(5)
+        self.assertEqual(self.game.score(), 13)
+        self.game.roll(5)
+        self.assertEqual(self.game.score(), 18)#25
+        self.game.roll(7)
+        self.assertEqual(self.game.score(), 32)
+        self.game.roll(3)
+        self.assertEqual(self.game.score(), 35)#36
+        self.game.roll(1)
+        self.assertEqual(self.game.score(), 37)
+        self.game.roll(0)
+        self.assertEqual(self.game.score(), 37)#37
+        self.game.roll(3)
+        self.assertEqual(self.game.score(), 40)
+        self.game.roll(7)
+        self.assertEqual(self.game.score(), 47)#57
+        self.game.roll(10)
+        self.assertEqual(self.game.score(), 67)#76
+        self.game.roll(5)
+        self.assertEqual(self.game.score(), 77)
+        self.game.roll(4)
+        self.assertEqual(self.game.score(), 85)#85
+        self.game.roll(8)
+        self.assertEqual(self.game.score(), 93)
+        self.game.roll(0)
+        self.assertEqual(self.game.score(), 93)#93
+        self.game.roll(4)
+        self.assertEqual(self.game.score(), 97)
+        self.game.roll(4)
+        self.assertEqual(self.game.score(), 101)#101
+        self.game.roll(7)
+        self.assertEqual(self.game.score(), 108)
+        self.game.roll(3)
+        self.assertEqual(self.game.score(), 111)#117
+        self.game.roll(6)
+        self.assertEqual(self.game.score(), 117)
+
     print(setUp.__doc__)
     help(BowlingGame)
 
