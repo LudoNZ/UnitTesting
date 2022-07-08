@@ -34,7 +34,9 @@ class TestBowlingGame(unittest.TestCase):
     def testOneStrike(self):
         """simulates a game with a Strike in first round"""
         self.game.roll(10)
+        self.assertEqual(self.game.score(), 10)
         self.game.roll(4)
+        self.assertEqual(self.game.score(), 18)
         self.game.roll(3)
         self.rollMany(0,16)
         assert  self.game.score()==24
@@ -42,7 +44,7 @@ class TestBowlingGame(unittest.TestCase):
     def testPerfectGame(self):
         """Simulates a Strike for each ball roll of a game"""
         self.rollMany(10,12)
-        assert self.game.score()==300
+        self.assertEqual(self.game.score(), 300)
 
     def testALLSpares(self):
         """Simulates a Game where every ball roll knocks down 5 pins, resulting in a Spare for each frame"""
@@ -64,7 +66,11 @@ class TestBowlingGame(unittest.TestCase):
         self.rollMany(11,22)
         assert self.game.score()==300
 
+    print(setUp.__doc__)
+    help(BowlingGame)
+
 if __name__ == '__main__':
     """run Unit Tests"""
     print('running tests')
     unittest.main()
+    

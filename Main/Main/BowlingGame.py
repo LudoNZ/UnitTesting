@@ -1,11 +1,11 @@
 class BowlingGame:
-    '''A Class to Run the Back-end of a Bowling game Scoring System
+    """A Class to Run the Back-end of a Bowling game Scoring System
     
     Attributes
     ----------
     rolls : array int
         an Array to store the number of pins dropped for each ball. 
-    '''
+    """
 
     def __init__(self):
         """Constructor, creates new array for each game"""
@@ -33,6 +33,8 @@ class BowlingGame:
         result = 0
         rollIndex=0
         for frameIndex in range(10):
+            if rollIndex >= len(self.rolls):
+                break
             if self.isStrike(rollIndex):
                 result += self.strike_score(rollIndex)
                 rollIndex +=1
@@ -51,11 +53,22 @@ class BowlingGame:
 
     def isSpare(self, rollIndex):
         """Checks if sum of current + next rolls[] index values equal 10 pins for both balls of current frame == SPARE"""
-        return self.rolls[rollIndex]+ self.rolls[rollIndex+1]==10
+        
+        if rollIndex < len(self.rolls) -1:
+            return self.rolls[rollIndex] + self.rolls[rollIndex+1] == 10
+        else:
+            return False
 
     def strike_score(self,rollIndex):
         """Returns 10 + score for next 2 balls"""
-        return  10+ self.rolls[rollIndex+1]+ self.rolls[rollIndex+2]
+        rollsCount = len(self.rolls)
+        
+        if rollIndex + 2 < rollsCount:
+            return  10+ self.rolls[rollIndex+1]+ self.rolls[rollIndex+2]
+        elif rollIndex + 1 < rollsCount:
+            return  10+ self.rolls[rollIndex+1]
+        else:
+            return 10
 
     def spareScore(self,rollIndex):
         """Returns 10 + Score for first ball of next frame"""
@@ -63,4 +76,7 @@ class BowlingGame:
 
     def frameScore(self, rollIndex):
         """returns Score for both balls in current Frame"""
-        return self.rolls[rollIndex] + self.rolls[rollIndex + 1]
+        if rollIndex +1 < len(self.rolls):
+            return self.rolls[rollIndex] + self.rolls[rollIndex + 1]
+        else:
+            return self.rolls[rollIndex]
